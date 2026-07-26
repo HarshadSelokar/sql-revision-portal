@@ -1,0 +1,164 @@
+{
+  "stats": {
+    "attempted": 0,
+    "correct": 0,
+    "wrong": 0,
+    "bookmarks": [],
+    "attemptedQuestions": {},
+    "topicStats": {
+      "SQL Basics": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "Database Concepts": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "DDL": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "DML": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "Constraints": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "Joins": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "Aggregate Functions": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "Grouping": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "Subqueries": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "Set Operations": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "NULL Handling": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "String Functions": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "Date Functions": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "Numeric Functions": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "Case Statements": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "Window Functions": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "Views": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "Indexes": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "Transactions": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "DCL": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "Normalization": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "Query Optimization": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "CTE": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "Stored Procedures": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "Triggers": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "Keys": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "Interview Questions": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      },
+      "Advanced SQL": {
+        "attempted": 0,
+        "correct": 0,
+        "accuracy": 0
+      }
+    },
+    "lastOpened": null,
+    "studyStreak": 0,
+    "totalTimeSpent": 0
+  },
+  "settings": {
+    "darkMode": true,
+    "fontSize": 16,
+    "shuffleQuestions": true,
+    "shuffleOptions": true,
+    "showTimer": true,
+    "showExplanation": true,
+    "revisionMode": false,
+    "enableSounds": false
+  }
+}

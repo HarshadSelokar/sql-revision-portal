@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SQL Revision & MCQ Practice Platform - Master SQL with 500+ questions, multiple learning modes, analytics, and progress tracking.">
+    <meta name="theme-color" content="#0f172a">
+    <title>SQL Revision Portal - Practice & Master SQL</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-icon">◆</span>
+                <span class="logo-text">SQLMaster</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#" data-page="home" class="nav-link active">Home</a></li>
+                <li><a href="#" data-page="practice" class="nav-link">Practice</a></li>
+                <li><a href="#" data-page="test" class="nav-link">Tests</a></li>
+                <li><a href="#" data-page="topics" class="nav-link">Topics</a></li>
+                <li><a href="#" data-page="bookmarks" class="nav-link">Bookmarks</a></li>
+                <li><a href="#" data-page="analytics" class="nav-link">Analytics</a></li>
+                <li><a href="#" data-page="settings" class="nav-link">Settings</a></li>
+            </ul>
+            <button class="mobile-toggle">☰</button>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        
+        <!-- HOME PAGE -->
+        <section id="home" class="page active">
+            <!-- Hero Section -->
+            <div class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">Master SQL with Confidence</h1>
+                    <p class="hero-subtitle">Practice with 500+ carefully curated questions across all SQL topics</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="navigatePage('practice')">Start Practice</button>
+                        <button class="btn btn-secondary" onclick="navigatePage('test')">Take a Test</button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="animated-gradient"></div>
+                </div>
+            </div>
+
+            <!-- Statistics Section -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="stat-attempted">0</div>
+                        <div class="stat-label">Attempted</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✓</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="stat-correct">0%</div>
+                        <div class="stat-label">Accuracy</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="stat-streak">0</div>
+                        <div class="stat-label">Study Streak</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🔖</div>
+                    <div class="stat-content">
+                        <div class="stat-value" id="stat-bookmarks">0</div>
+                        <div class="stat-label">Bookmarks</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <h2>Quick Actions</h2>
+                <div class="actions-grid">
+                    <div class="action-card" onclick="continueLearning()">
+                        <div class="action-icon">▶</div>
+                        <div class="action-title">Continue Learning</div>
+                        <div class="action-subtitle">Resume from last question</div>
+                    </div>
+                    <div class="action-card" onclick="navigatePage('bookmarks')">
+                        <div class="action-icon">🔖</div>
+                        <div class="action-title">Bookmarks</div>
+                        <div class="action-subtitle">View saved questions</div>
+                    </div>
+                    <div class="action-card" onclick="navigatePage('analytics')">
+                        <div class="action-icon">📈</div>
+                        <div class="action-title">Analytics</div>
+                        <div class="action-subtitle">Track your progress</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="recent-activity">
+                <h2>Recent Activity</h2>
+                <div id="recent-activity-list" class="activity-list">
+                    <p class="no-data">No activity yet. Start practicing!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRACTICE PAGE -->
+        <section id="practice" class="page">
+            <div class="page-header">
+                <h1>Practice Mode</h1>
+                <p>Unlimited attempts with instant feedback</p>
+            </div>
+
+            <div class="practice-container">
+                <!-- Filters Sidebar -->
+                <div class="sidebar">
+                    <div class="filter-section">
+                        <h3>Filters</h3>
+                        
+                        <div class="filter-group">
+                            <label>Difficulty</label>
+                            <div class="filter-options">
+                                <input type="checkbox" id="filter-easy" value="Easy" onchange="applyPracticeFilters()">
+                                <label for="filter-easy">Easy</label>
+                                <input type="checkbox" id="filter-medium" value="Medium" onchange="applyPracticeFilters()">
+                                <label for="filter-medium">Medium</label>
+                                <input type="checkbox" id="filter-hard" value="Hard" onchange="applyPracticeFilters()">
+                                <label for="filter-hard">Hard</label>
+                            </div>
+                        </div>
+
+                        <div class="filter-group">
+                            <label>Status</label>
+                            <div class="filter-options">
+                                <input type="checkbox" id="filter-bookmarked" value="bookmarked" onchange="applyPracticeFilters()">
+                                <label for="filter-bookmarked">Bookmarked</label>
+                                <input type="checkbox" id="filter-attempted" value="attempted" onchange="applyPracticeFilters()">
+                                <label for="filter-attempted">Attempted</label>
+                                <input type="checkbox" id="filter-unattempted" value="unattempted" onchange="applyPracticeFilters()">
+                                <label for="filter-unattempted">Unattempted</label>
+                            </div>
+                        </div>
+
+                        <div class="filter-group">
+                            <label for="practice-topic-filter">Topic</label>
+                            <select id="practice-topic-filter" onchange="applyPracticeFilters()">
+                                <option value="">All Topics</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-group">
+                            <input type="text" id="practice-search" placeholder="Search questions..." onchange="applyPracticeFilters()">
+                        </div>
+
+                        <button class="btn btn-secondary" onclick="resetPracticeFilters()">Reset Filters</button>
+                    </div>
+
+                    <div class="revision-mode-section">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="revision-mode" onchange="toggleRevisionMode()">
+                            <span>Revision Mode</span>
+                        </label>
+                        <p class="toggle-desc">Hide answers until revealed</p>
+                    </div>
+
+                    <div class="settings-section">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="show-timer" checked>
+                            <span>Show Timer</span>
+                        </label>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="shuffle-options" checked>
+                            <span>Shuffle Options</span>
+                        </label>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="dark-mode-toggle" checked>
+                            <span>Dark Mode</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question Display -->
+                <div class="question-container">
+                    <div id="practice-question-area" class="question-area">
+                        <p class="loading">Select filters and click a question to start</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TEST PAGE -->
+        <section id="test" class="page">
+            <div class="page-header">
+                <h1>Test Mode</h1>
+                <p>Take timed tests with scoring</p>
+            </div>
+
+            <div id="test-setup" class="test-setup">
+                <div class="setup-card">
+                    <h2>Select Test Type</h2>
+                    <div class="test-options">
+                        <button class="test-btn" onclick="startTest(30)">
+                            <div class="test-btn-title">Quick Test</div>
+                            <div class="test-btn-desc">30 Questions</div>
+                        </button>
+                        <button class="test-btn" onclick="startTest(50)">
+                            <div class="test-btn-title">Standard Test</div>
+                            <div class="test-btn-desc">50 Questions</div>
+                        </button>
+                        <button class="test-btn" onclick="startTest(100)">
+                            <div class="test-btn-title">Full Test</div>
+                            <div class="test-btn-desc">100 Questions</div>
+                        </button>
+                    </div>
+
+                    <div class="custom-test">
+                        <input type="number" id="custom-test-count" min="1" max="500" placeholder="Enter custom count" value="20">
+                        <button class="btn btn-primary" onclick="startTest(parseInt(document.getElementById('custom-test-count').value))">Start Custom Test</button>
+                    </div>
+
+                    <div class="test-settings">
+                        <h3>Test Settings</h3>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="test-negative-marking" checked>
+                            <span>Negative Marking (0.25 per wrong)</span>
+                        </label>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="test-allow-skip" checked>
+                            <span>Allow Skip</span>
+                        </label>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="test-show-timer" checked>
+                            <span>Show Timer</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="test-container" class="test-container hidden">
+                <!-- Test UI will be rendered here -->
+            </div>
+
+            <div id="test-result" class="test-result hidden">
+                <!-- Test result will be rendered here -->
+            </div>
+        </section>
+
+        <!-- TOPICS PAGE -->
+        <section id="topics" class="page">
+            <div class="page-header">
+                <h1>Topic Wise Revision</h1>
+                <p>Master SQL by topics</p>
+            </div>
+
+            <div class="topics-grid" id="topics-grid">
+                <!-- Topics will be populated here -->
+            </div>
+
+            <div id="topic-detail" class="topic-detail hidden">
+                <!-- Topic detail will be shown here -->
+            </div>
+        </section>
+
+        <!-- BOOKMARKS PAGE -->
+        <section id="bookmarks" class="page">
+            <div class="page-header">
+                <h1>Bookmarked Questions</h1>
+                <p>Your saved questions for later review</p>
+            </div>
+
+            <div class="bookmarks-container">
+                <div class="bookmarks-filters">
+                    <button class="filter-btn active" onclick="filterBookmarks('all')">All</button>
+                    <button class="filter-btn" onclick="filterBookmarks('correct')">Correct</button>
+                    <button class="filter-btn" onclick="filterBookmarks('wrong')">Wrong</button>
+                    <button class="filter-btn" onclick="filterBookmarks('unattempted')">Unattempted</button>
+                </div>
+
+                <div id="bookmarks-list" class="questions-list">
+                    <p class="no-data">No bookmarks yet. Start bookmarking questions!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANALYTICS PAGE -->
+        <section id="analytics" class="page">
+            <div class="page-header">
+                <h1>Analytics & Progress</h1>
+                <p>Track your learning journey</p>
+            </div>
+
+            <div class="analytics-container">
+                <!-- Overall Stats -->
+                <div class="analytics-section">
+                    <h2>Overall Statistics</h2>
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-number" id="analytics-total">0</div>
+                            <div class="stat-name">Total Attempted</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number" id="analytics-correct">0</div>
+                            <div class="stat-name">Correct Answers</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number" id="analytics-wrong">0</div>
+                            <div class="stat-name">Wrong Answers</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number" id="analytics-accuracy">0%</div>
+                            <div class="stat-name">Accuracy</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number" id="analytics-time">0h</div>
+                            <div class="stat-name">Time Spent</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-number" id="analytics-completion">0%</div>
+                            <div class="stat-name">Completion</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Topic Breakdown -->
+                <div class="analytics-section">
+                    <h2>Topic-wise Accuracy</h2>
+                    <div id="topic-accuracy-chart" class="chart-container">
+                        <!-- Chart will be rendered here -->
+                    </div>
+                </div>
+
+                <!-- Difficulty Breakdown -->
+                <div class="analytics-section">
+                    <h2>Difficulty Breakdown</h2>
+                    <div id="difficulty-breakdown" class="breakdown-list">
+                        <!-- Will be populated -->
+                    </div>
+                </div>
+
+                <!-- Weak and Strong Topics -->
+                <div class="analytics-grid">
+                    <div class="analytics-section">
+                        <h2>Weakest Topics</h2>
+                        <div id="weak-topics" class="topics-list">
+                            <!-- Will be populated -->
+                        </div>
+                    </div>
+                    <div class="analytics-section">
+                        <h2>Strongest Topics</h2>
+                        <div id="strong-topics" class="topics-list">
+                            <!-- Will be populated -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Export/Import -->
+                <div class="analytics-section">
+                    <h2>Data Management</h2>
+                    <div class="data-buttons">
+                        <button class="btn btn-secondary" onclick="exportProgress()">📥 Export Progress</button>
+                        <button class="btn btn-secondary" onclick="importProgress()">📤 Import Progress</button>
+                        <button class="btn btn-secondary" onclick="resetStatistics()">🔄 Reset Statistics</button>
+                        <button class="btn btn-secondary" onclick="clearBookmarks()">❌ Clear Bookmarks</button>
+                    </div>
+                </div>
+            </div>
+
+            <input type="file" id="import-file" style="display: none;" accept=".json">
+        </section>
+
+        <!-- SETTINGS PAGE -->
+        <section id="settings" class="page">
+            <div class="page-header">
+                <h1>Settings</h1>
+                <p>Customize your learning experience</p>
+            </div>
+
+            <div class="settings-container">
+                <div class="settings-section">
+                    <h2>Display</h2>
+                    <div class="setting-item">
+                        <label for="font-size-control">Font Size</label>
+                        <input type="range" id="font-size-control" min="14" max="20" value="16" onchange="changeFontSize(this.value)">
+                        <span id="font-size-display">16px</span>
+                    </div>
+                    <div class="setting-item">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="dark-mode-setting" checked onchange="toggleDarkMode()">
+                            <span>Dark Mode</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h2>Quiz Behavior</h2>
+                    <div class="setting-item">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="shuffle-questions" checked>
+                            <span>Shuffle Questions</span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="shuffle-options-setting" checked>
+                            <span>Shuffle Options</span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="show-timer-setting" checked>
+                            <span>Show Timer</span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="show-explanation" checked>
+                            <span>Show Explanations</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h2>Revision Mode</h2>
+                    <div class="setting-item">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="revision-mode-default">
+                            <span>Enable Revision Mode by Default</span>
+                        </label>
+                        <p class="setting-desc">Hide answers until you manually reveal them</p>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h2>Sound</h2>
+                    <div class="setting-item">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="enable-sounds">
+                            <span>Enable Sound Effects</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h2>About</h2>
+                    <div class="about-info">
+                        <p><strong>SQLMaster</strong> - Master SQL with Confidence</p>
+                        <p>Version 1.0.0</p>
+                        <p>A comprehensive SQL revision and practice platform with 500+ questions</p>
+                        <p><a href="https://github.com" target="_blank">GitHub</a> | <a href="mailto:support@sqlmaster.com">Support</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for Question Display -->
+    <div id="question-modal" class="modal hidden">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeQuestionModal()">&times;</button>
+            
+            <div class="question-header">
+                <div class="question-meta">
+                    <span class="question-id" id="modal-q-id"></span>
+                    <span class="question-difficulty" id="modal-q-difficulty"></span>
+                    <span class="question-topic" id="modal-q-topic"></span>
+                </div>
+                <div class="question-timer">
+                    <span id="question-timer">00:00</span>
+                </div>
+            </div>
+
+            <div class="question-body">
+                <p class="question-text" id="modal-question-text"></p>
+
+                <div class="question-type-badge" id="modal-question-type"></div>
+
+                <div class="options-container" id="modal-options-container">
+                    <!-- Options will be rendered here -->
+                </div>
+
+                <div class="user-answer-display" id="user-answer-display"></div>
+            </div>
+
+            <div class="explanation-section" id="explanation-section" style="display: none;">
+                <div class="explanation-header">
+                    <h4>Explanation</h4>
+                    <button class="close-explanation" onclick="this.parentElement.parentElement.style.display='none'">×</button>
+                </div>
+                <p id="explanation-text"></p>
+                <div class="example-section" id="example-section" style="display: none;">
+                    <h5>Example</h5>
+                    <pre id="example-code"></pre>
+                </div>
+                <div class="trick-section" id="trick-section" style="display: none;">
+                    <h5>💡 Interview Tip</h5>
+                    <p id="trick-text"></p>
+                </div>
+            </div>
+
+            <div class="question-navigation">
+                <button class="btn btn-secondary" onclick="previousQuestion()">← Previous</button>
+                <button class="btn btn-secondary" onclick="randomQuestion()">Random</button>
+                <button class="btn btn-secondary" onclick="nextQuestion()">Next →</button>
+            </div>
+
+            <div class="question-actions">
+                <button class="btn btn-icon" id="bookmark-btn" onclick="toggleBookmark()" title="Bookmark">🔖</button>
+                <button class="btn btn-icon" onclick="reportQuestion()" title="Report">🚩</button>
+                <button class="btn btn-secondary" id="reveal-answer-btn" onclick="revealAnswer()" style="display: none;">Reveal Answer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden file input for import -->
+    <input type="file" id="file-input" style="display: none;">
+
+    <script src="script.js"></script>
+</body>
+</html>
