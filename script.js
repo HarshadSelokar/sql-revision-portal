@@ -404,16 +404,26 @@ function displayQuestion(questionId) {
     document.getElementById('modal-question-text').textContent = question.question;
     document.getElementById('modal-question-type').textContent = question.type || 'MCQ';
 
-    // Render options
-    const options = AppState.settings.shuffleOptions
-        ? [...question.options].sort(() => Math.random() - 0.5)
-        : question.options;
+    // Render options - get stored shuffle seed or create new one
+    let shuffleKey = `shuffle_${question.id}`;
+    let optionIndices = JSON.parse(sessionStorage.getItem(shuffleKey));
+    
+    if (!optionIndices) {
+        optionIndices = Array.from({ length: question.options.length }, (_, i) => i);
+        if (AppState.settings.shuffleOptions) {
+            optionIndices.sort(() => Math.random() - 0.5);
+        }
+        sessionStorage.setItem(shuffleKey, JSON.stringify(optionIndices));
+    }
+    
+    const options = optionIndices.map(i => question.options[i]);
 
     const optionsContainer = document.getElementById('modal-options-container');
-    optionsContainer.innerHTML = options.map((opt, idx) => {
+    optionsContainer.innerHTML = options.map((opt, displayIdx) => {
+        const originalIdx = optionIndices[displayIdx];
         const attempted = AppState.stats.attemptedQuestions[question.id];
-        const isSelected = attempted?.selectedOption === idx;
-        const isCorrect = idx === question.correct;
+        const isSelected = attempted?.selectedOption === originalIdx;
+        const isCorrect = originalIdx === question.correct;
         const showCorrect = attempted && !AppState.settings.revisionMode;
 
         let classes = 'option';
@@ -422,8 +432,8 @@ function displayQuestion(questionId) {
         if (showCorrect && isSelected && !isCorrect) classes += ' incorrect';
 
         return `
-            <div class="option ${classes}" onclick="selectAnswerOption(${question.id}, ${idx})">
-                <span class="option-letter">${String.fromCharCode(65 + idx)}.</span>
+            <div class="option ${classes}" onclick="selectAnswerOption(${question.id}, ${originalIdx})">
+                <span class="option-letter">${String.fromCharCode(65 + displayIdx)}.</span>
                 ${opt}
             </div>
         `;
@@ -617,6 +627,12 @@ function reportQuestion() {
 function closeQuestionModal() {
     document.getElementById('question-modal').classList.add('hidden');
     AppState.currentQuestion = null;
+    // Clear shuffle seeds when closing modal to allow fresh shuffle on next open
+    Object.keys(sessionStorage).forEach(key => {
+        if (key.startsWith('shuffle_')) {
+            sessionStorage.removeItem(key);
+        }
+    });
 }
 
 // ==================== TEST MODE ====================
@@ -743,6 +759,8 @@ function renderTestQuestion() {
  */
 function selectTestOption(questionId, optionIdx) {
     AppState.testMode.answers[questionId] = optionIdx;
+    // Re-render to show selection highlight
+    renderTestQuestion();
 }
 
 /**
@@ -872,6 +890,13 @@ function endTest() {
     document.getElementById('test-container').classList.add('hidden');
     resultContainer.classList.remove('hidden');
     AppState.testMode.active = false;
+    
+    // Clear shuffle seeds
+    Object.keys(sessionStorage).forEach(key => {
+        if (key.startsWith('shuffle_')) {
+            sessionStorage.removeItem(key);
+        }
+    });
 }
 
 // ==================== TOPICS ====================
